@@ -10,7 +10,7 @@ const App = () => {
     <main className="bg-black w-full h-screen flex justify-center items-center">
       <div className="bg-blue p-6 rounded-lg shadow-md flex flex-row">
         {board.map((cells, index) => (
-          <Column key={index} cells={cells} col={index} setBoard={setBoard} />
+          <Column key={index} cells={cells} col={index} board={board} setBoard={setBoard} />
         ))}
       </div>
     </main>
