@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import { Circle } from './Circle';
-import { useBoard } from '../hooks/useBoard';
+import { checkWinner } from '../utils/checkWinner';
 
 type Props = {
   col: number;
@@ -8,6 +7,8 @@ type Props = {
   setBoard: React.Dispatch<React.SetStateAction<State[][]>>;
   activePlayer: State;
   setActivePlayer: (player: State) => void;
+  hasEnded: boolean;
+  setEnded: (hasWon: boolean) => void;
 };
 
 export const Column: React.FC<Props> = ({
@@ -16,11 +17,16 @@ export const Column: React.FC<Props> = ({
   setBoard,
   activePlayer,
   setActivePlayer,
+  hasEnded,
+  setEnded,
 }) => {
-  const [column, setColumn] = useState<State[]>(board[col]);
-  const { checkWinner } = useBoard();
-
   const handleClick = () => {
+    if (hasEnded) {
+      return;
+    }
+
+    const column = [...board[col]];
+
     const index = column.lastIndexOf(0);
 
     if (index < 0) {
@@ -33,13 +39,16 @@ export const Column: React.FC<Props> = ({
     const newBoard = [...board];
     newBoard[col] = newColumn;
 
-    const hasWon = checkWinner(newBoard, activePlayer, col, index);
+    setBoard(newBoard);
 
-    console.log({ hasWon });
+    const hasWon = checkWinner(newBoard, activePlayer, col, index);
+    if (hasWon) {
+      console.log(`ganó el compa del color ${activePlayer === 1 ? 'yellow' : 'red'}`);
+      setEnded(true);
+      return;
+    }
 
     setActivePlayer(activePlayer === 1 ? 2 : 1);
-    setColumn(newColumn);
-    setBoard(newBoard);
   };
 
   return (
