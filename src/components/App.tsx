@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Column } from './Column';
 import { Circle } from './Circle';
+import { useGameStore } from '../store/useGameStore';
 
 const App = () => {
   const [board, setBoard] = useState<State[][]>(() => {
