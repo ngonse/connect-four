@@ -1,36 +1,46 @@
+import { useEffect, useState } from 'react';
 import { Circle } from './Circle';
 
 type Props = {
-  cells: State[];
   col: number;
   board: State[][];
   setBoard: React.Dispatch<React.SetStateAction<State[][]>>;
+  activePlayer: State;
+  setActivePlayer: (player: State) => void;
 };
 
-export const Column: React.FC<Props> = ({ cells, col, board, setBoard }) => {
-  const handleClick = () => {
-    const canAdd = cells.some((cell) => cell === 0);
+export const Column: React.FC<Props> = ({
+  col,
+  board,
+  setBoard,
+  activePlayer,
+  setActivePlayer,
+}) => {
+  const [column, setColumn] = useState<State[]>(board[col]);
 
-    if (!canAdd) {
+  const handleClick = () => {
+    const index = column.lastIndexOf(0);
+
+    if (index < 0) {
       return;
     }
 
-    const index = [...cells].reverse().findIndex((cell) => cell < 1);
+    const newColumn = [...column];
 
-    const newCol = [...cells];
-
-    newCol[index] = 2;
+    newColumn[index] = activePlayer;
 
     const newBoard = [...board];
 
-    newBoard[col] = newCol;
+    newBoard[col] = newColumn;
 
+    setActivePlayer(activePlayer === 1 ? 2 : 1);
+    setColumn(newColumn);
     setBoard(newBoard);
   };
 
   return (
     <a onClick={handleClick} className={`flex flex-col justify-center gap-3 mr-3`}>
-      {cells.map((value, index) => (
+      {board[col].map((value, index) => (
         <Circle key={index} state={value} />
       ))}
     </a>
