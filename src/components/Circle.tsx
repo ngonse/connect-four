@@ -14,7 +14,7 @@ export const Circle: React.FC<Props> = ({ state, classnames }) => {
 
   return (
     <span
-      className={`w-20 h-20 rounded-full flex justify-center items-center ${bg} ${
+      className={`w-20 h-20 rounded-full flex justify-center items-center shadow-inner ${bg} ${
         classnames && classnames
       }`}
     />

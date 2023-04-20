@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Column } from './Column';
 import { Circle } from './Circle';
+import { useBoard } from '../hooks/useBoard';
 
 const App = () => {
   const [board, setBoard] = useState<State[][]>(() => {
@@ -10,7 +11,7 @@ const App = () => {
 
   return (
     <main className="bg-black w-full h-screen flex flex-col justify-center items-center">
-      <div className="bg-blue p-6 rounded-lg shadow-md flex flex-row">
+      <section className="bg-blue p-6 rounded-lg shadow-md flex ">
         {board.map((_, index) => (
           <Column
             key={index}
@@ -21,24 +22,26 @@ const App = () => {
             setActivePlayer={setActivePlayer}
           />
         ))}
-      </div>
+      </section>
 
-      <h2 className="text-3xl text-stone-200 my-3">Jugador activo</h2>
+      <section>
+        <h2 className="text-3xl text-stone-200 my-3">Jugador activo</h2>
 
-      <div className="flex justify-center items-center gap-3">
-        <Circle
-          state={1}
-          classnames={`transition-all duration-300 transform ${
-            activePlayer === 1 ? 'scale-110' : 'scale-90'
-          }`}
-        />
-        <Circle
-          state={2}
-          classnames={`transition-all duration-300 transform ${
-            activePlayer === 2 ? 'scale-110' : 'scale-90'
-          }`}
-        />
-      </div>
+        <div className="flex justify-center items-center gap-3">
+          <Circle
+            state={1}
+            classnames={`transition-all duration-300 transform ${
+              activePlayer === 1 ? 'scale-110' : 'scale-90'
+            }`}
+          />
+          <Circle
+            state={2}
+            classnames={`transition-all duration-300 transform ${
+              activePlayer === 2 ? 'scale-110' : 'scale-90'
+            }`}
+          />
+        </div>
+      </section>
     </main>
   );
 };
