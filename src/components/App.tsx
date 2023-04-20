@@ -28,13 +28,13 @@ const App = () => {
       <div className="flex justify-center items-center gap-3">
         <Circle
           state={1}
-          classnames={`transition-all duration-150 transform ${
+          classnames={`transition-all duration-300 transform ${
             activePlayer === 1 ? 'scale-110' : 'scale-90'
           }`}
         />
         <Circle
           state={2}
-          classnames={`transition-all duration-150 transform ${
+          classnames={`transition-all duration-300 transform ${
             activePlayer === 2 ? 'scale-110' : 'scale-90'
           }`}
         />
