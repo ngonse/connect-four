@@ -20,11 +20,11 @@ export const Chip: React.FC<Props> = ({ chipState, classnames }) => {
     [currentPlayer],
   );
 
-  const clasess = clsx(
+  const classes = clsx(
     'w-20 h-20 rounded-full flex justify-center items-center border-8',
     CHIP_STATES[chipState],
     classnames,
   );
 
-  return <span className={clasess} />;
+  return <span className={classes} />;
 };
