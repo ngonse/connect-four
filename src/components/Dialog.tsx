@@ -1,26 +1,26 @@
 import { useGameStore } from '../store/useGameStore';
 
 export const Dialog = () => {
-  const { activePlayer, clearState } = useGameStore((state) => ({
-    activePlayer: state.activePlayer,
+  const { currentPlayer, clearState } = useGameStore((state) => ({
+    currentPlayer: state.currentPlayer,
     clearState: state.clearState,
   }));
 
   let textColor = 'text-gray-200';
 
-  if (activePlayer === 1) {
+  if (currentPlayer === 1) {
     textColor = 'text-yellow';
-  } else if (activePlayer === 2) {
+  } else if (currentPlayer === 2) {
     textColor = 'text-red';
   }
 
   return (
     <div className="dialog fixed top-0 bottom-0 right-0 left-0 bg-black bg-opacity-70 flex justify-center items-center transition-all duration-1000">
       <div className="w-[500px] h-80 bg-slate-100 rounded-2xl shadow-md flex flex-col justify-center items-center">
-        {activePlayer === 0 ? (
+        {currentPlayer === 0 ? (
           <p className="text-3xl mb-6">It's a tie!</p>
         ) : (
-          <p className="text-3xl mb-6">Player {activePlayer} wins!</p>
+          <p className="text-3xl mb-6">Player {currentPlayer} wins!</p>
         )}
 
         <svg

@@ -1,13 +1,13 @@
 const CHIPS_TO_WIN = 4;
 
-export const checkWinner = (board: State[][], activePlayer: State, col: number, row: number) => {
+export const checkWinner = (board: State[][], currentPlayer: State, col: number, row: number) => {
   let count = 0;
 
   let winnerChips: [number, number][] = [];
 
   // check horizontal
   for (let tempCol = 0; tempCol < board.length; tempCol++) {
-    if (board[tempCol][row] === activePlayer) {
+    if (board[tempCol][row] === currentPlayer) {
       count++;
       winnerChips.push([tempCol, row]);
 
@@ -29,7 +29,7 @@ export const checkWinner = (board: State[][], activePlayer: State, col: number, 
       break;
     }
 
-    if (board[col][tempRow] === activePlayer) {
+    if (board[col][tempRow] === currentPlayer) {
       count++;
       winnerChips.push([col, tempRow]);
 
@@ -46,10 +46,10 @@ export const checkWinner = (board: State[][], activePlayer: State, col: number, 
   for (let tempCol = 0; tempCol < 4; tempCol++) {
     for (let tempRow = 5; tempRow > 2; tempRow--) {
       if (
-        board[tempCol][tempRow] === activePlayer &&
-        board[tempCol + 1][tempRow - 1] === activePlayer &&
-        board[tempCol + 2][tempRow - 2] === activePlayer &&
-        board[tempCol + 3][tempRow - 3] === activePlayer
+        board[tempCol][tempRow] === currentPlayer &&
+        board[tempCol + 1][tempRow - 1] === currentPlayer &&
+        board[tempCol + 2][tempRow - 2] === currentPlayer &&
+        board[tempCol + 3][tempRow - 3] === currentPlayer
       ) {
         winnerChips.push(
           [tempCol, tempRow],
@@ -67,10 +67,10 @@ export const checkWinner = (board: State[][], activePlayer: State, col: number, 
   for (let tempCol = 6; tempCol > 2; tempCol--) {
     for (let tempRow = 5; tempRow > 2; tempRow--) {
       if (
-        board[tempCol][tempRow] === activePlayer &&
-        board[tempCol - 1][tempRow - 1] === activePlayer &&
-        board[tempCol - 2][tempRow - 2] === activePlayer &&
-        board[tempCol - 3][tempRow - 3] === activePlayer
+        board[tempCol][tempRow] === currentPlayer &&
+        board[tempCol - 1][tempRow - 1] === currentPlayer &&
+        board[tempCol - 2][tempRow - 2] === currentPlayer &&
+        board[tempCol - 3][tempRow - 3] === currentPlayer
       ) {
         winnerChips.push(
           [tempCol, tempRow],

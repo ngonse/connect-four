@@ -2,11 +2,11 @@ import { create } from 'zustand';
 
 type GameStore = {
   board: State[][];
-  activePlayer: State;
+  currentPlayer: State;
   hasEnded: boolean;
   tie: boolean;
   setBoard: (board: State[][]) => void;
-  setActivePlayer: (player: State) => void;
+  setCurrentPlayer: (player: State) => void;
   setEnd: () => void;
   setTie: () => void;
   clearState: () => void;
@@ -17,13 +17,13 @@ const FIRTS_PLAYER = 1;
 
 export const useGameStore = create<GameStore>((set) => ({
   board: EMPTY_BOARD,
-  activePlayer: FIRTS_PLAYER,
+  currentPlayer: FIRTS_PLAYER,
   hasEnded: false,
   tie: false,
   setBoard: (board) => set(() => ({ board })),
-  setActivePlayer: (activePlayer) => set(() => ({ activePlayer })),
+  setCurrentPlayer: (currentPlayer) => set(() => ({ currentPlayer })),
   setEnd: () => set(() => ({ hasEnded: true })),
-  setTie: () => set(() => ({ tie: true, hasEnded: true, activePlayer: 0 })),
+  setTie: () => set(() => ({ tie: true, hasEnded: true, currentPlayer: 0 })),
   clearState: () =>
-    set(() => ({ board: EMPTY_BOARD, activePlayer: FIRTS_PLAYER, hasEnded: false })),
+    set(() => ({ board: EMPTY_BOARD, currentPlayer: FIRTS_PLAYER, hasEnded: false })),
 }));

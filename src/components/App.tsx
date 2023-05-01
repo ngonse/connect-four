@@ -1,12 +1,12 @@
 import { Column } from './Column';
-import { Circle } from './Circle';
+import { Chip } from './Chip';
 import { Dialog } from './Dialog';
 import { useGameStore } from '../store/useGameStore';
 
 const App = () => {
-  const { board, activePlayer, hasEnded } = useGameStore((state) => ({
+  const { board, currentPlayer, hasEnded } = useGameStore((state) => ({
     board: state.board,
-    activePlayer: state.activePlayer,
+    currentPlayer: state.currentPlayer,
     hasEnded: state.hasEnded,
   }));
 
@@ -22,16 +22,16 @@ const App = () => {
         <h2 className="text-3xl text-stone-200 my-3 text-center">Player</h2>
 
         <div className="flex justify-center items-center gap-3">
-          <Circle
-            state={1}
+          <Chip
+            chipState={1}
             classnames={`transition-all duration-300 transform ${
-              activePlayer === 1 ? 'scale-110' : 'scale-90'
+              currentPlayer === 1 ? 'scale-110' : 'scale-90'
             }`}
           />
-          <Circle
-            state={2}
+          <Chip
+            chipState={2}
             classnames={`transition-all duration-300 transform ${
-              activePlayer === 2 ? 'scale-110' : 'scale-90'
+              currentPlayer === 2 ? 'scale-110' : 'scale-90'
             }`}
           />
         </div>
