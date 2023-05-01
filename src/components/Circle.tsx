@@ -4,7 +4,7 @@ type Props = {
 };
 
 export const Circle: React.FC<Props> = ({ state, classnames }) => {
-  let bg = state === 0 ? 'bg-neutral-300' : '';
+  let bg = 'bg-neutral-300';
 
   if (state === 1) {
     bg = 'bg-yellow';

@@ -1,47 +1,26 @@
+const CHIPS_TO_WIN = 4;
+
 export const checkWinner = (board: State[][], activePlayer: State, col: number, row: number) => {
-  /*
-      board
-
-      first array  = 7 -> columns
-      second array = 6 -> rows
-
-      * * * * * * *
-      * * * * * * *
-      * * * * * * *
-      * * * * * * *
-      * * * * * * *
-      * * * * * * *
-
-            * * * *
-          * * * * *
-        * * * * * *
-      * * * * * *
-      * * * * *
-      * * * *
-
-      * * * *
-      * * * * *
-      * * * * * *
-        * * * * * *
-          * * * * *
-            * * * *
-    */
-
   let count = 0;
+
+  let winnerChips: [number, number][] = [];
 
   // check horizontal
   for (let tempCol = 0; tempCol < board.length; tempCol++) {
     if (board[tempCol][row] === activePlayer) {
       count++;
+      winnerChips.push([tempCol, row]);
 
-      if (count === 4) {
-        return true;
+      if (count === CHIPS_TO_WIN) {
+        return winnerChips;
       }
     } else {
+      winnerChips = [];
       count = 0;
     }
   }
 
+  winnerChips = [];
   count = 0;
 
   // check vertical
@@ -52,12 +31,14 @@ export const checkWinner = (board: State[][], activePlayer: State, col: number, 
 
     if (board[col][tempRow] === activePlayer) {
       count++;
+      winnerChips.push([col, tempRow]);
 
-      if (count === 4) {
-        return true;
+      if (count === CHIPS_TO_WIN) {
+        return winnerChips;
       }
     } else {
       count = 0;
+      winnerChips = [];
     }
   }
 
@@ -70,7 +51,14 @@ export const checkWinner = (board: State[][], activePlayer: State, col: number, 
         board[tempCol + 2][tempRow - 2] === activePlayer &&
         board[tempCol + 3][tempRow - 3] === activePlayer
       ) {
-        return true;
+        winnerChips.push(
+          [tempCol, tempRow],
+          [tempCol + 1, tempRow - 1],
+          [tempCol + 2, tempRow - 2],
+          [tempCol + 3, tempRow - 3],
+        );
+
+        return winnerChips;
       }
     }
   }
@@ -84,10 +72,45 @@ export const checkWinner = (board: State[][], activePlayer: State, col: number, 
         board[tempCol - 2][tempRow - 2] === activePlayer &&
         board[tempCol - 3][tempRow - 3] === activePlayer
       ) {
-        return true;
+        winnerChips.push(
+          [tempCol, tempRow],
+          [tempCol - 1, tempRow - 1],
+          [tempCol - 2, tempRow - 2],
+          [tempCol - 3, tempRow - 3],
+        );
+
+        return winnerChips;
       }
     }
   }
 
-  return false;
+  return null;
 };
+
+/*
+  board
+
+  first array  = 7 -> columns
+  second array = 6 -> rows
+
+  * * * * * * *
+  * * * * * * *
+  * * * * * * *
+  * * * * * * *
+  * * * * * * *
+  * * * * * * *
+
+        * * * *
+      * * * * *
+    * * * * * *
+  * * * * * *
+  * * * * *
+  * * * *
+
+  * * * *
+  * * * * *
+  * * * * * *
+    * * * * * *
+      * * * * *
+        * * * *
+*/

@@ -1,35 +1,20 @@
-import { useState } from 'react';
 import { Column } from './Column';
 import { Circle } from './Circle';
 import { Dialog } from './Dialog';
+import { useGameStore } from '../store/useGameStore';
 
 const App = () => {
-  const [board, setBoard] = useState<State[][]>(() => {
-    return Array.from({ length: 7 }, () => Array(6).fill(0));
-  });
-  const [activePlayer, setActivePlayer] = useState<State>(1);
-  const [hasEnded, setEnded] = useState(false);
-
-  const reset = () => {
-    setBoard(Array.from({ length: 7 }, () => Array(6).fill(0)));
-    setActivePlayer(1);
-    setEnded(false);
-  };
+  const { board, activePlayer, hasEnded } = useGameStore((state) => ({
+    board: state.board,
+    activePlayer: state.activePlayer,
+    hasEnded: state.hasEnded,
+  }));
 
   return (
     <main className="bg-black w-full h-screen flex flex-col justify-center items-center">
       <section className="bg-blue p-6 rounded-lg shadow-md flex ">
         {board.map((_, index) => (
-          <Column
-            key={index}
-            col={index}
-            board={board}
-            setBoard={setBoard}
-            activePlayer={activePlayer}
-            setActivePlayer={setActivePlayer}
-            hasEnded={hasEnded}
-            setEnded={setEnded}
-          />
+          <Column key={index} col={index} />
         ))}
       </section>
 
@@ -52,7 +37,7 @@ const App = () => {
         </div>
       </section>
 
-      {hasEnded ? <Dialog activePlayer={activePlayer} reset={reset} /> : null}
+      {hasEnded ? <Dialog /> : null}
     </main>
   );
 };

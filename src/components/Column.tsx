@@ -1,32 +1,30 @@
 import { Circle } from './Circle';
 import { checkWinner } from '../utils/checkWinner';
+import { useGameStore } from '../store/useGameStore';
+import { checkTie } from '../utils/checkTie';
 
 type Props = {
   col: number;
-  board: State[][];
-  setBoard: React.Dispatch<React.SetStateAction<State[][]>>;
-  activePlayer: State;
-  setActivePlayer: (player: State) => void;
-  hasEnded: boolean;
-  setEnded: (hasWon: boolean) => void;
 };
 
-export const Column: React.FC<Props> = ({
-  col,
-  board,
-  setBoard,
-  activePlayer,
-  setActivePlayer,
-  hasEnded,
-  setEnded,
-}) => {
+export const Column: React.FC<Props> = ({ col }) => {
+  const { board, activePlayer, hasEnded, setActivePlayer, setBoard, setEnded, setTie } =
+    useGameStore((state) => ({
+      board: state.board,
+      setBoard: state.setBoard,
+      activePlayer: state.activePlayer,
+      setActivePlayer: state.setActivePlayer,
+      hasEnded: state.hasEnded,
+      setEnded: state.setEnd,
+      setTie: state.setTie,
+    }));
+
   const handleClick = () => {
     if (hasEnded) {
       return;
     }
 
     const column = [...board[col]];
-
     const index = column.lastIndexOf(0);
 
     if (index < 0) {
@@ -42,9 +40,18 @@ export const Column: React.FC<Props> = ({
     setBoard(newBoard);
 
     const hasWon = checkWinner(newBoard, activePlayer, col, index);
+
+    console.log({ hasWon });
+
     if (hasWon) {
-      console.log(`ganó el compa del color ${activePlayer === 1 ? 'yellow' : 'red'}`);
-      setEnded(true);
+      setEnded();
+      return;
+    }
+
+    const tie = checkTie(newBoard);
+
+    if (tie) {
+      setTie();
       return;
     }
 
