@@ -41,15 +41,12 @@ export const Column: React.FC<Props> = ({ col }) => {
 
     const hasWon = checkWinner(newBoard, activePlayer, col, index);
 
-    console.log({ hasWon });
-
     if (hasWon) {
       hasWon.forEach((chip) => {
         newBoard[chip[0]][chip[1]] = 3;
       });
 
       setBoard(newBoard);
-
       setEnded();
       return;
     }
