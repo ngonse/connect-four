@@ -1,1 +1,1 @@
-declare type State = 0 | 1 | 2;
+declare type State = 0 | 1 | 2 | 3;
