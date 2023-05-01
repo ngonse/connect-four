@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <main className="bg-black w-full h-screen flex flex-col justify-center items-center">
-      <section className="bg-blue p-6 rounded-lg shadow-md flex ">
+      <section className="bg-blue p-6 rounded-lg shadow-md flex">
         {board.map((_, index) => (
           <Column key={index} col={index} />
         ))}

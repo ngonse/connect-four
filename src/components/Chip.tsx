@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { clsx } from 'clsx';
+import { useEffect, useMemo } from 'react';
+import clsx from 'clsx';
 import { useGameStore } from '../store/useGameStore';
 
 type Props = {
@@ -17,13 +17,13 @@ export const Chip: React.FC<Props> = ({ chipState, classnames }) => {
       2: 'bg-red border-red',
       3: `border-4 border-green-600 ${currentPlayer === 1 ? 'bg-yellow' : 'bg-red'}`,
     }),
-    [currentPlayer],
+    [chipState],
   );
 
   const classes = clsx(
     'w-20 h-20 rounded-full flex justify-center items-center border-8',
     CHIP_STATES[chipState],
-    classnames,
+    classnames && classnames,
   );
 
   return <span className={classes} />;
